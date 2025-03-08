@@ -1,20 +1,15 @@
 import { type Page } from "@browserbasehq/stagehand";
-import { actWithCache } from "../utils.js";
+import { actWithCache, getEnvVar } from "../utils.js";
 import { z } from "zod";
 
 export async function navigateToLoginPage(page: Page) {
-  const loginURL = process.env.LOGIN_URL;
-  if (loginURL == undefined) {
-    throw new Error("login url is not set in the env");
-  }
-  await page.goto(loginURL);
+  const loginURL = getEnvVar("LOGIN_URL");
+  await page.goto(loginURL!);
   await page.waitForLoadState("networkidle");
 }
 
 export async function clickSignInButton(page: Page) {
-  await page.act({
-    action: "click on the 'sign in' button",
-  });
+  await actWithCache(page, "click on the 'sign in' button");
 }
 
 export async function fillLoginForm(
@@ -22,10 +17,12 @@ export async function fillLoginForm(
   username: string,
   password: string
 ) {
-  await page.act({
-    action: "fill in the form with %username% and %password%",
-    variables: { username, password },
-  });
+  await actWithCache(page, `fill in the form with username: ${username}`);
+  await actWithCache(page, `fill in the form with password: ${password}`);
+}
+
+export async function submitForm(page: Page) {
+  await actWithCache(page, "Click on the 'sign in' button to submit the form");
 }
 
 export async function verifyLogin(page: Page) {

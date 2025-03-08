@@ -162,9 +162,9 @@ export async function actWithCache(
   console.log(chalk.blue("Taking cacheable action:"), actionToCache);
   await simpleCache(instruction, actionToCache);
   // OPTIONAL: Draw an overlay over the relevant xpaths
-  await drawObserveOverlay(page, results);
-  await page.waitForTimeout(1000); // Can delete this line, just a pause to see the overlay
-  await clearOverlays(page);
+  // await drawObserveOverlay(page, results);
+  // await page.waitForTimeout(1000); // Can delete this line, just a pause to see the overlay
+  // await clearOverlays(page);
 
   // Execute the action
   await page.act(actionToCache);

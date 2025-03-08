@@ -4,6 +4,10 @@ import { loginWorkflow } from "../workflows/loginWorkflow.js";
 import { switchNodes } from "../steps/changeNodeSteps.js";
 import { clickOnApplyButton, selectDateRange } from "../steps/filterSteps.js";
 import { getEnvVar } from "../utils.js";
+import {
+  clickOnConfirmAndSettleButton,
+  selectNettingGroup,
+} from "../steps/batonTableSteps.js";
 
 export async function simplePVP(page: Page) {
   await login(page);
@@ -11,6 +15,7 @@ export async function simplePVP(page: Page) {
   await selectValueDateRange(page);
   await clickOnApplyFilters(page);
   await confirmAndSettleNettingGroup(page);
+  await clickOnConfirmAndSettle(page);
 }
 
 async function login(page: Page) {
@@ -68,7 +73,7 @@ async function clickOnApplyFilters(page: Page) {
   try {
     const clicked = await clickOnApplyButton(page);
 
-    if (clicked.success) {
+    if (clicked) {
       console.log(
         chalk.green("Successfully clicked on the apply filters button")
       );
@@ -87,6 +92,44 @@ async function clickOnApplyFilters(page: Page) {
     throw error;
   }
 }
-function confirmAndSettleNettingGroup(page: Page) {
-  throw new Error("Function not implemented.");
+
+async function confirmAndSettleNettingGroup(page: Page) {
+  try {
+    const clicked = await selectNettingGroup(page);
+
+    if (clicked.success) {
+      console.log(chalk.green("Successfully clicked on the netting group row"));
+    } else {
+      console.log(
+        chalk.red("Clicking on netting group row has failed. Please verify.")
+      );
+    }
+  } catch (error: any) {
+    console.error(
+      chalk.red("Error during clicking on netting group row"),
+      error
+    );
+    throw error;
+  }
+}
+async function clickOnConfirmAndSettle(page: Page) {
+  try {
+    const clicked = await clickOnConfirmAndSettleButton(page);
+
+    if (clicked.success) {
+      console.log(
+        chalk.green("Successfully clicked on the confirm and settle button")
+      );
+    } else {
+      console.log(
+        chalk.red("Clicking on confirm and settle failed. Please verify.")
+      );
+    }
+  } catch (error: any) {
+    console.error(
+      chalk.red("Error during clicking on confirm and settle button"),
+      error
+    );
+    throw error;
+  }
 }

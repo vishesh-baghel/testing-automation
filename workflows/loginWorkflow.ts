@@ -5,6 +5,7 @@ import {
   clickSignInButton,
   fillLoginForm,
   verifyLogin,
+  submitForm,
 } from "../steps/loginSteps.js";
 
 export async function loginWorkflow(
@@ -15,6 +16,6 @@ export async function loginWorkflow(
   await navigateToLoginPage(page);
   await clickSignInButton(page);
   await fillLoginForm(page, username, password);
-  await clickSignInButton(page); // click again to submit
+  await submitForm(page);
   return await verifyLogin(page);
 }
