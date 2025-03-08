@@ -32,23 +32,5 @@ export async function main({
   context: BrowserContext;
   stagehand: Stagehand;
 }) {
-  try {
-    const username = process.env.LOGIN_USERNAME;
-    const password = process.env.LOGIN_PASSWORD;
-
-    if (username == undefined || password == undefined) {
-      throw new Error("username and password are not configured in the env");
-    }
-
-    const isLoggedIn = await loginWorkflow(page, username, password);
-
-    if (isLoggedIn) {
-      console.log(chalk.green("Successfully logged in!"));
-    } else {
-      console.log(chalk.red("Login might have failed. Please verify."));
-    }
-  } catch (error) {
-    console.error(chalk.red("Error during login:"), error);
-    throw error;
-  }
+  await simplePVP(page);
 }

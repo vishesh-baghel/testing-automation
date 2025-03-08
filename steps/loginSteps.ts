@@ -1,4 +1,5 @@
 import { type Page } from "@browserbasehq/stagehand";
+import { actWithCache } from "../utils.js";
 import { z } from "zod";
 
 export async function navigateToLoginPage(page: Page) {
