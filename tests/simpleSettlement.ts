@@ -6,6 +6,8 @@ import { clickOnApplyButton, selectDateRange } from "../steps/filterSteps.js";
 import { getEnvVar } from "../utils.js";
 import {
   clickOnConfirmAndSettleButton,
+  clickOnSaveAndContinueButton,
+  clickOnWarningCheckButton,
   selectNettingGroup,
 } from "../steps/batonTableSteps.js";
 
@@ -16,6 +18,8 @@ export async function simplePVP(page: Page) {
   await clickOnApplyFilters(page);
   await confirmAndSettleNettingGroup(page);
   await clickOnConfirmAndSettle(page);
+  await clickOnWarningButton(page);
+  await clickOnSaveAndContinue(page);
 }
 
 async function login(page: Page) {
@@ -112,11 +116,12 @@ async function confirmAndSettleNettingGroup(page: Page) {
     throw error;
   }
 }
+
 async function clickOnConfirmAndSettle(page: Page) {
   try {
     const clicked = await clickOnConfirmAndSettleButton(page);
 
-    if (clicked.success) {
+    if (clicked) {
       console.log(
         chalk.green("Successfully clicked on the confirm and settle button")
       );
@@ -128,6 +133,48 @@ async function clickOnConfirmAndSettle(page: Page) {
   } catch (error: any) {
     console.error(
       chalk.red("Error during clicking on confirm and settle button"),
+      error
+    );
+    throw error;
+  }
+}
+
+async function clickOnWarningButton(page: Page) {
+  try {
+    const clicked = await clickOnWarningCheckButton(page);
+
+    if (clicked) {
+      console.log(chalk.green("Successfully clicked on the warning checkbox"));
+    } else {
+      console.log(
+        chalk.red("Clicking on warning checkbox failed. Please verify.")
+      );
+    }
+  } catch (error: any) {
+    console.error(
+      chalk.red("Error during clicking on warning checkbox button"),
+      error
+    );
+    throw error;
+  }
+}
+
+async function clickOnSaveAndContinue(page: Page) {
+  try {
+    const clicked = await clickOnSaveAndContinueButton(page);
+
+    if (clicked.success) {
+      console.log(
+        chalk.green("Successfully clicked on the save and continue button")
+      );
+    } else {
+      console.log(
+        chalk.red("Clicking on save and continue button failed. Please verify.")
+      );
+    }
+  } catch (error: any) {
+    console.error(
+      chalk.red("Error during clicking on save and continue button"),
       error
     );
     throw error;

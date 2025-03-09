@@ -4,7 +4,7 @@ import { actWithCache } from "../utils.js";
 export async function selectDateRange(page: Page) {
   await actWithCache(
     page,
-    "Click on the calendar icon present in the value date date picker"
+    "click on the calendar icon button next to the 'Value Date' textbox in the date picker"
   );
   await actWithCache(page, "Click on '1' in the calendar component");
   await actWithCache(page, "Click on '30' in the calendar component");
