@@ -1,46 +1,70 @@
-# Pull Request Template
+name: Mastra AI Pull Request
+description: Submit a pull request to the Mastra AI project
+title: "[TYPE]: Brief description"
+labels: ["needs-review"]
+body:
 
-## Description
+- type: markdown
+  attributes:
+  value: | # Mastra AI Pull Request
+  Thank you for contributing to the Mastra AI project! Please fill out the information below to help reviewers understand your changes.
 
-<!-- Provide a brief description of the changes in this PR -->
-
-## Related Issue(s)
-
-<!-- Link to the issue(s) this PR addresses, using hashtag notation: #123 -->
-
-## Type of Change
-
-- [ ] Bug fix (non-breaking change that fixes an issue)
-- [ ] New feature (non-breaking change that adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to change)
-- [ ] Documentation update
-- [ ] Code refactoring
-- [ ] Performance improvement
-- [ ] Test update
-
-## Testing Performed
-
-<!-- Describe the testing you have performed to verify your changes work -->
-
-- [ ] Unit tests added/updated
-- [ ] Integration tests added/updated
-- [ ] Manual testing performed
-
-## Screenshots/Recordings
-
-<!-- If applicable, add screenshots or recordings to help explain your changes -->
-
-## Checklist
-
-- [ ] I have performed a self-review of my own code
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
-- [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] Any dependent changes have been merged and published
-- [ ] I have updated the changelog
-
-## Additional Notes
-
-<!-- Add any other context about the PR here -->
+- type: input
+  id: related-issue
+  attributes:
+  label: Related Issue
+  description: Link to the issue this PR addresses
+  placeholder: "#123"
+  validations:
+  required: false
+- type: dropdown
+  id: change-type
+  attributes:
+  label: Type of Change
+  description: What type of change does this PR introduce?
+  multiple: true
+  options: - Bug fix (non-breaking change that fixes an issue) - New feature (non-breaking change that adds functionality) - Breaking change (fix or feature that would cause existing functionality to change) - Documentation update - Code refactoring - Performance improvement - Test update
+  validations:
+  required: true
+- type: textarea
+  id: changes-made
+  attributes:
+  label: Changes Made
+  description: Describe the changes you've made in detail
+  placeholder: Explain what changes were made and why
+  validations:
+  required: true
+- type: textarea
+  id: testing
+  attributes:
+  label: Testing Performed
+  description: Describe the testing you have performed to verify your changes
+  placeholder: List what tests you've added or updated, and any manual testing performed
+  validations:
+  required: true
+- type: checkboxes
+  id: testing-types
+  attributes:
+  label: Testing Types
+  description: What types of testing have you performed?
+  options: - label: Unit tests added/updated - label: Integration tests added/updated - label: Manual testing performed
+- type: textarea
+  id: screenshots
+  attributes:
+  label: Screenshots/Recordings
+  description: If applicable, add screenshots or recordings to help explain your changes
+  validations:
+  required: false
+- type: checkboxes
+  id: checklist
+  attributes:
+  label: Checklist
+  description: Before submitting, please make sure you've completed the following
+  options: - label: My code follows the project's style guidelines - label: I have performed a self-review of my own code - label: I have commented my code, particularly in hard-to-understand areas - label: I have made corresponding changes to the documentation - label: My changes generate no new warnings - label: I have added tests that prove my fix is effective or that my feature works - label: New and existing unit tests pass locally with my changes - label: Any dependent changes have been merged and published
+- type: textarea
+  id: additional-notes
+  attributes:
+  label: Additional Notes
+  description: Add any other context about the PR here
+  validations:
+  required: false
